@@ -1,0 +1,45 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-php-deployment
+  namespace: sample-php
+  labels:
+    app: sample-php
+spec:
+  replicas: 10
+  selector:
+    matchLabels:
+      app: sample-php
+  template:
+    metadata:
+      labels:
+        app: sample-php
+    spec:
+      containers:
+        - name: sample-php
+          image: geminiousdrigon/sample-php:1.0.0
+          ports:
+            - containerPort: 80
+          readinessProbe:
+            httpGet:
+              path: /
+              port: 80
+              httpHeaders:
+                - name: X-Custom-Header
+                  value: Awesome
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 20
+          livenessProbe:
+            httpGet:
+              path: /
+              port: 80
+              httpHeaders:
+                - name: X-Custom-Header
+                  value: Awesome
+            initialDelaySeconds: 15
+            periodSeconds: 15
+            successThreshold: 1
+            timeoutSeconds: 20
+
