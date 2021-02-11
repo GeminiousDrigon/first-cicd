@@ -27,6 +27,6 @@ jobs:
       # Runs a set of commands using the runners shell
       - name: Building Docker Image
         run: |
-          docker build -t geminiousdrigon/sample-php:1.0.0  .
+          docker build -t geminiousdrigon/sample-php:1.0.1  .
           docker login -u $DOCKER_ID -p $DOCKER_PASSWORD
           docker push geminiousdrigon/sample-php
